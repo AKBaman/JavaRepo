@@ -1,0 +1,561 @@
+***********************************    1*         ***********************************************
+
+public class vechicle {
+    private String colour;
+    private int wheels;
+    private boolean isRunning;
+
+    public vechicle(String colour, int wheels) {
+        this.colour = colour;
+        this.wheels = wheels;
+        this.isRunning = false;
+    }
+
+    public void start() {
+        if (!isRunning) {
+            isRunning = true;
+            System.out.println("vechicle has started");
+        } else {
+            System.out.println("vechicle is already running");
+        }
+    }
+
+    public void stop() {
+        if (isRunning) {
+            isRunning = false;
+            System.out.println("vechicle has stopped");
+        } else {
+            System.out.println("vechicle was already stopped");
+        }
+    }
+
+    public void setColor(String colour) {
+        this.colour = colour;
+    }
+
+    public String getcolour() {
+        return colour;
+    }
+
+    public void setWheels(int wheels) {
+        this.wheels = wheels;
+    }
+
+    public int getwheels() {
+        return wheels;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public static void main(String[] args) {
+        vechicle car = new vechicle("Red", 4);
+        System.out.println("Color: " + car.getcolour());
+        System.out.println("Number of Wheels: " + car.getwheels());
+        car.start();
+        car.stop();
+        car.start();
+    }
+}
+
+*****************************************************************************************************
+
+************************************************** 2 ***********************************************
+class Parent {
+    void show() {
+        System.out.println("Parent class method");
+    }
+}
+
+class Child extends Parent {
+    void display() {
+        System.out.println("Child class method");
+    }
+}
+
+public class SingleInheritanceExample {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        obj.show();
+        obj.display();
+    }
+}
+
+---------------------------------------------------------------------
+class GrandParent {
+    void show() {
+        System.out.println("GrandParent class method");
+    }
+}
+
+class Parent1 extends GrandParent {
+    void display() {
+        System.out.println("Parent1 class method");
+    }
+}
+
+class Child1 extends Parent1 {
+    void print() {
+        System.out.println("Child1 class method");
+    }
+}
+
+public class MultilevelInheritanceExample {
+    public static void main(String[] args) {
+        Child1 obj = new Child1();
+        obj.show();
+        obj.display();
+        obj.print();
+    }
+}
+------------------------------------------------------------
+class Parent2 {
+    void show() {
+        System.out.println("Parent2 class method");
+    }
+}
+
+class Child2 extends Parent2 {
+    void display() {
+        System.out.println("Child2 class method");
+    }
+}
+
+class AnotherChild extends Parent2 {
+    void print() {
+        System.out.println("AnotherChild class method");
+    }
+}
+
+public class HierarchicalInheritanceExample {
+    public static void main(String[] args) {
+        Child2 obj1 = new Child2();
+        obj1.show();
+        obj1.display();
+
+        AnotherChild obj2 = new AnotherChild();
+        obj2.show();
+        obj2.print();
+    }
+}
+
+***********************************************************************************************
+
+
+************************************* 3  **********************************************************
+public class MatrixAddition {
+    public static void main(String[] args) {
+        int[][] matrix1 = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+        int[][] matrix2 = { {9, 8, 7}, {6, 5, 4}, {3, 2, 1} };
+        int rows = matrix1.length;
+        int cols = matrix1[0].length;
+        int[][] result = new int[rows][cols];
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+------------------------------------------------------------------------------------
+public class MatrixSubtraction {
+    public static void main(String[] args) {
+        int[][] matrix1 = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+        int[][] matrix2 = { {9, 8, 7}, {6, 5, 4}, {3, 2, 1} };
+        int rows = matrix1.length;
+        int cols = matrix1[0].length;
+        int[][] result = new int[rows][cols];
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = matrix1[i][j] - matrix2[i][j];
+            }
+        }
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+---------------------------------------------------------------------------------------
+public class MatrixMultiplication {
+    public static void main(String[] args) {
+        int[][] matrix1 = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+        int[][] matrix2 = { {9, 8, 7}, {6, 5, 4}, {3, 2, 1} };
+        int rows1 = matrix1.length;
+        int cols1 = matrix1[0].length;
+        int cols2 = matrix2[0].length;
+        int[][] result = new int[rows1][cols2];
+        
+        for (int i = 0; i < rows1; i++) {
+            for (int j = 0; j < cols2; j++) {
+                for (int k = 0; k < cols1; k++) {
+                    result[i][j] += matrix1[i][k] * matrix2[k][j];
+                }
+            }
+        }
+        
+        for (int i = 0; i < rows1; i++) {
+            for (int j = 0; j < cols2; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+*******************************************************************************************************
+
+************************************************* 4 ****************************************************
+class Bank {
+    float getRateOfInterest() {
+        return 0.0f;
+    }
+}
+
+class SBI extends Bank {
+    float getRateOfInterest() {
+        return 8.0f; 
+    }
+}
+
+class ICICI extends Bank {
+    float getRateOfInterest() {
+        return 7.5f; 
+    }
+}
+
+class AXIS extends Bank {
+    float getRateOfInterest() {
+        return 9.0f;
+    }
+}
+
+public class banks {
+    public static void main(String[] args) {
+        SBI sbi = new SBI();
+        ICICI icici = new ICICI();
+        AXIS axis = new AXIS();
+        
+        System.out.println("Rate of interest in SBI: " + sbi.getRateOfInterest() + "%");
+        System.out.println("Rate of interest in ICICI: " + icici.getRateOfInterest() + "%");
+        System.out.println("Rate of interest in AXIS: " + axis.getRateOfInterest() + "%");
+    }
+}
+
+************************************************************************************************
+
+************************************************  5 *************************************************
+
+class VolumeCalculator {
+    double volume;
+
+    
+    VolumeCalculator(double side) {
+        volume = side * side * side;
+    }
+
+    
+    VolumeCalculator(double radius, double height) {
+        volume = Math.PI * radius * radius * height;
+    }
+
+    
+    VolumeCalculator(double length, double width, double height) {
+        volume = length * width * height;
+    }
+
+    void displayVolume(String shape) {
+        System.out.println("Volume of " + shape + " is: " + volume);
+    }
+}
+
+public class volume {
+    public static void main(String[] args) {
+        
+        VolumeCalculator cube = new VolumeCalculator(5);
+        VolumeCalculator cylinder = new VolumeCalculator(3, 7);
+        VolumeCalculator box = new VolumeCalculator(4, 6, 8);
+
+        
+        cube.displayVolume("cube");
+        cylinder.displayVolume("cylinder");
+        box.displayVolume("rectangular box");
+    }
+}
+
+************************************************************************************************************
+
+*************************************  6  *************************************************************
+
+import java.util.Scanner;
+
+class Stack {
+    private int[] stackArray;
+    private int top;
+    private int maxSize;
+
+
+    public Stack(int size) {
+        maxSize = size;
+        stackArray = new int[maxSize];
+        top = -1;
+    }
+
+    
+    public void push(int value) {
+        if (isFull()) {
+            System.out.println("Stack is full. Cannot push element.");
+        } else {
+            stackArray[++top] = value;
+            System.out.println(value + " pushed onto the stack.");
+        }
+    }
+
+   
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot pop element.");
+            return -1;
+        } else {
+            int poppedValue = stackArray[top--];
+            System.out.println(poppedValue + " popped from the stack.");
+            return poppedValue;
+        }
+    }
+
+    
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot peek element.");
+            return -1;
+        } else {
+            System.out.println("Top element of stack: " + stackArray[top]);
+            return stackArray[top];
+        }
+    }
+
+    
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    
+    public boolean isFull() {
+        return (top == maxSize - 1);
+    }
+}
+
+public class stackc {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter the size of the stack: ");
+        int size = scanner.nextInt();
+
+       
+        Stack stack = new Stack(size);
+
+        
+        int choice;
+        do {
+            System.out.println("\nStack Operations:");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to push onto the stack: ");
+                    int element = scanner.nextInt();
+                    stack.push(element);
+                    break;
+                case 2:
+                    stack.pop();
+                    break;
+                case 3:
+                    stack.peek();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        } while (choice != 4);
+
+        
+        scanner.close();
+    }
+}
+*****************************************************************************************************
+
+******************************** 7 ****************************************************************
+public class wrapper {
+    public static void main(String[] args) {
+       
+        Integer intObj = Integer.valueOf(10); // Integer wrapper class for int
+        Double doubleObj = Double.valueOf(3.14); // Double wrapper class for double
+        Character charObj = Character.valueOf('A'); // Character wrapper class for char
+        Boolean boolObj = Boolean.valueOf(true); // Boolean wrapper class for boolean
+
+       
+        System.out.println("Integer value: " + intObj);
+        System.out.println("Double value: " + doubleObj);
+        System.out.println("Character value: " + charObj);
+        System.out.println("Boolean value: " + boolObj);
+
+
+        int intValue = intObj.intValue(); // Converting Integer object to int
+        double doubleValue = doubleObj.doubleValue(); // Converting Double object to double
+        char charValue = charObj.charValue(); // Converting Character object to char
+        boolean boolValue = boolObj.booleanValue(); // Converting Boolean object to boolean
+
+        
+        System.out.println("Converted integer value: " + intValue);
+        System.out.println("Converted double value: " + doubleValue);
+        System.out.println("Converted character value: " + charValue);
+        System.out.println("Converted boolean value: " + boolValue);
+    }
+}
+
+*************************************************************************************************
+
+***********************************************  8  *********************************************
+
+
+abstract class Shape {
+    
+    public abstract double calculateArea();
+}
+
+
+class Circle extends Shape {
+    private double radius;
+
+    
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+public class ABclass {
+    public static void main(String[] args) {
+        
+        Shape circle = new Circle(5);
+
+        
+        System.out.println("Area of circle: " + circle.calculateArea());
+    }
+}
+
+*******************************************************************************************************
+
+*******************************  9  ****************************************************
+
+// Interface definition
+interface Shape {
+    double calculateArea(); // Method declaration
+}
+
+// Concrete class implementing the Shape interface
+class Circle implements Shape {
+    private double radius;
+
+    // Constructor
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    // Implementation of the calculateArea method for Circle
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+// Main class
+public class INTERface {
+    public static void main(String[] args) {
+        // Creating an object of Circle class
+        Circle circle = new Circle(5);
+
+        // Calculating and printing the area of the circle
+        System.out.println("Area of circle: " + circle.calculateArea());
+    }
+}
+
+***************************************************************************************************
+
+***********************************************   10  **********************************************
+class CustomException extends Exception {
+    public CustomException(String message) {
+        super(message);
+    }
+}
+
+public class ThrowExample {
+    static void validateAge(int age) throws CustomException {
+        if (age < 18) {
+            throw new CustomException("Age must be 18 or above.");
+        } else {
+            System.out.println("Valid age: " + age);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            validateAge(15);
+        } catch (CustomException e) {
+            System.out.println("Caught CustomException: " + e.getMessage());
+        }
+    }
+}
+
+--------------------------------------------------------------------------------------
+
+class Divide {
+    static void divideNumbers(int dividend, int divisor) throws ArithmeticException {
+        if (divisor == 0) {
+            throw new ArithmeticException("Cannot divide by zero.");
+        } else {
+            int result = dividend / divisor;
+            System.out.println("Result of division: " + result);
+        }
+    }
+}
+
+public class ThrowsExample {
+    public static void main(String[] args) {
+        try {
+            Divide.divideNumbers(10, 0);
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException: " + e.getMessage());
+        }
+    }
+}
+
+***********************************************************************************************
+
