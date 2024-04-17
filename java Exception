@@ -1,0 +1,22 @@
+package ExceptionHandling_06_02;
+
+class CustomException extends Exception{
+    public CustomException(String name){
+        super(name);
+    }
+}
+
+public class test4 {
+    public static void main(String[] args) {
+        try{
+            String name = "kunal";
+            if(name.equals("Kunal")){
+                throw new CustomException("Exceptioned name");
+            }
+        }catch(CustomException e){
+            System.out.println("Exception Occured : " + e.getMessage());
+        }finally{
+            System.out.println("Always Executed");
+        }
+    }
+}
