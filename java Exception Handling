@@ -1,0 +1,23 @@
+class CustomException extends Exception{
+    public CustomException(String message){
+        super(message);
+    }
+}
+public class ExceptionExample {
+//    public static void throwException() throws Exception{
+//        throw new CustomException("Message of Exception");
+//    }
+
+    public void HandleException(){
+        try{
+           throw new CustomException("Message of Exception"); 
+        }catch(CustomException e){
+            System.out.println("Exception Detected : " + e.getMessage());
+        } 
+    }
+
+    public static void main(String[] args) {
+        ExceptionExample e1 =  new ExceptionExample();
+        e1.HandleException();
+    }
+}
