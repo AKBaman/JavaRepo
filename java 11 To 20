@@ -1,0 +1,343 @@
+*******************************************  12  ***********************************************
+
+class Message {
+    private String content;
+    private boolean empty = true;
+
+    public synchronized String read() {
+        while (empty) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted while waiting for message to be read.");
+            }
+        }
+        empty = true;
+        notifyAll();
+        return content;
+    }
+
+    public synchronized void write(String content) {
+        while (!empty) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted while waiting for message to be written.");
+            }
+        }
+        this.content = content;
+        empty = false;
+        notifyAll();
+    }
+}
+
+class Sender implements Runnable {
+    private Message message;
+
+    public Sender(Message message) {
+        this.message = message;
+    }
+
+    public void run() {
+        String[] messages = {"Hello", "How are you?", "Bye"};
+        for (String msg : messages) {
+            message.write(msg);
+            System.out.println("Sent: " + msg);
+            try {
+                Thread.sleep(1000); // Simulate some processing time
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted while sending message.");
+            }
+        }
+    }
+}
+
+class Receiver implements Runnable {
+    private Message message;
+
+    public Receiver(Message message) {
+        this.message = message;
+    }
+
+    public void run() {
+        for (int i = 0; i < 3; i++) {
+            String receivedMessage = message.read();
+            System.out.println("Received: " + receivedMessage);
+            try {
+                Thread.sleep(1000); // Simulate some processing time
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted while receiving message.");
+            }
+        }
+    }
+}
+
+public class InterProcessCommunication {
+    public static void main(String[] args) {
+        Message message = new Message();
+
+        Thread senderThread = new Thread(new Sender(message));
+        Thread receiverThread = new Thread(new Receiver(message));
+
+        senderThread.start();
+        receiverThread.start();
+    }
+}
+****************************************************************************************
+
+**********************************************  15 ************************************
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class StudentAdmissionForm {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Student Admission Form");
+        System.out.println("----------------------");
+
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter student age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine(); // Consume newline character
+
+        System.out.print("Enter student address: ");
+        String address = scanner.nextLine();
+
+        System.out.print("Enter student email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Enter student contact number: ");
+        String contactNumber = scanner.nextLine();
+
+        // Write the student details to a file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("student_details.txt"))) {
+            writer.write("Student Name: " + name);
+            writer.newLine();
+            writer.write("Student Age: " + age);
+            writer.newLine();
+            writer.write("Student Address: " + address);
+            writer.newLine();
+            writer.write("Student Email: " + email);
+            writer.newLine();
+            writer.write("Student Contact Number: " + contactNumber);
+            writer.newLine();
+
+            System.out.println("Student details saved successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        } finally {
+            scanner.close();
+        }
+    }
+}
+
+***************************************************************************************************
+*********************************************  17  ***********************************************
+public class Person {
+    private String name;
+    private int age;
+
+    // Getter method for 'name'
+    public String getName() {
+        return name;
+    }
+
+    // Setter method for 'name'
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Getter method for 'age'
+    public int getAge() {
+        return age;
+    }
+
+    // Setter method for 'age'
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of Person class
+        Person person = new Person();
+
+        // Set values using setter methods
+        person.setName("John");
+        person.setAge(30);
+
+        // Get values using getter methods and print them
+        System.out.println("Name: " + person.getName());
+        System.out.println("Age: " + person.getAge());
+    }
+}
+
+***********************************************************************************************
+***********************************************  18  ************************************************
+
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double num1, num2;
+        char operator;
+        double result = 0;
+
+        System.out.print("Enter first number: ");
+        num1 = scanner.nextDouble();
+
+        System.out.print("Enter operator (+, -, *, /): ");
+        operator = scanner.next().charAt(0);
+
+        System.out.print("Enter second number: ");
+        num2 = scanner.nextDouble();
+
+        try {
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 == 0) {
+                        throw new ArithmeticException("Division by zero is not allowed");
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    System.out.println("Invalid operator");
+                    return;
+            }
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+**********************************************************************************************************
+
+-*********************************************************   19  ***********************************
+
+class ThreadA extends Thread {
+    public void run() {
+        for (int i = 1; i <= 2; i++) {
+            System.out.println("Thread A: " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class ThreadB extends Thread {
+    public void run() {
+        for (char ch = 'A'; ch <= 'C'; ch++) {
+            System.out.println("Thread B: " + ch);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class ThreadC extends Thread {
+    public void run() {
+        for (int i = 3; i >= 1; i--) {
+            System.out.println("Thread C: " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class Thread19 {
+    public static void main(String[] args) {
+        ThreadA threadA = new ThreadA();
+        ThreadB threadB = new ThreadB();
+        ThreadC threadC = new ThreadC();
+
+        threadA.start();
+        threadB.start();
+        threadC.start();
+    }
+}
+******************************************************************************************
+
+*******************************************  20  ********************************************************
+
+public class ThreadExample {
+    private static Object lock1 = new Object();
+    private static Object lock2 = new Object();
+    private static Object lock3 = new Object();
+
+    public static void main(String[] args) {
+        Thread th1 = new Thread(new Th1());
+        Thread th2 = new Thread(new Th2());
+        Thread th3 = new Thread(new Th3());
+
+        th1.start();
+        th2.start();
+        th3.start();
+    }
+
+    static class Th1 implements Runnable {
+        public void run() {
+            synchronized (lock1) {
+                System.out.println("Thread 1 is working for purpose 1");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    static class Th2 implements Runnable {
+        public void run() {
+            synchronized (lock2) {
+                System.out.println("Thread 2 is working for purpose 2");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    static class Th3 implements Runnable {
+        public void run() {
+            synchronized (lock3) {
+                System.out.println("Thread 3 is working for purpose 3");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+*******************************************************************************************
+
