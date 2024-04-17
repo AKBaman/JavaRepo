@@ -1,0 +1,90 @@
+public class ArrayQueue {
+    private int maxSize; // Maximum size of the queue
+    private int[] queueArray; // Array to hold the queue elements
+    private int front; // Index of the front element
+    private int rear; // Index of the rear element
+    private int currentSize; // Current number of elements in the queue
+
+    // Constructor to initialize the queue
+    public ArrayQueue(int size) {
+        this.maxSize = size;
+        this.queueArray = new int[maxSize];
+        this.front = 0;
+        this.rear = -1;
+        this.currentSize = 0;
+    }
+
+    // Method to add an element to the rear of the queue
+    public void enqueue(int element) {
+        if (isFull()) {
+            System.out.println("Queue is full. Cannot enqueue.");
+            return;
+        }
+        rear = (rear + 1) % maxSize; // Circular increment of rear index
+        queueArray[rear] = element;
+        currentSize++;
+    }
+
+    // Method to remove an element from the front of the queue
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return -1; // Return -1 if queue is empty
+        }
+        int removedElement = queueArray[front];
+        front = (front + 1) % maxSize; // Circular increment of front index
+        currentSize--;
+        return removedElement;
+    }
+
+    // Method to check if the queue is empty
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    // Method to check if the queue is full
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    // Method to get the size of the queue
+    public int size() {
+        return currentSize;
+    }
+
+    // Method to display the elements of the queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+        System.out.print("Queue: ");
+        int count = 0;
+        int index = front;
+        while (count < currentSize) {
+            System.out.print(queueArray[index] + " ");
+            index = (index + 1) % maxSize;
+            count++;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue queue = new ArrayQueue(5); // Creating a queue with a maximum size of 5
+
+        // Enqueue elements
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+
+        // Display queue
+        queue.display(); // Output: Queue: 10 20 30
+
+        // Dequeue elements
+        System.out.println("Dequeued element: " + queue.dequeue()); // Output: Dequeued element: 10
+        System.out.println("Dequeued element: " + queue.dequeue()); // Output: Dequeued element: 20
+
+        // Display queue after dequeuing
+        queue.display(); // Output: Queue: 30
+    }
+}
